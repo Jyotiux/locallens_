@@ -12,7 +12,7 @@ const App = () => {
 
   const handleFormSubmit = async (formData) => {
     try {
-      const res = await fetch("http://localhost:5000/api/spots", {
+      const res = await fetch("https://discover-jcj0.onrender.com/api/spots", {
         method: "POST",
         body: formData,
       });
@@ -33,7 +33,7 @@ const App = () => {
 
   const fetchSpots = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/spots");
+      const res = await fetch("https://discover-jcj0.onrender.com/api/spots");
       const data = await res.json();
       setSpots(data);
     } catch (error) {
