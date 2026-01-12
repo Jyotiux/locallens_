@@ -20,11 +20,10 @@ const SpotForm = ({ onSubmit, coords, onCancel }) => {
     formData.append("category", category);
     formData.append("lat", coords.lat);
     formData.append("lng", coords.lng);
-    
 
     if (image && image.length > 0) {
       image.forEach((img) => {
-        formData.append("images", img); 
+        formData.append("images", img);
       });
     }
 
@@ -37,7 +36,7 @@ const SpotForm = ({ onSubmit, coords, onCancel }) => {
   };
 
   return (
-    <div className="bg-white border rounded p-4 shadow-md w-full max-w-md mx-auto mt-6">
+    <div className="card p-6 w-full max-w-lg mx-auto mt-6">
       <h2 className="text-xl font-semibold mb-4">Add Hidden Spot</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -45,21 +44,21 @@ const SpotForm = ({ onSubmit, coords, onCancel }) => {
           placeholder="Spot Name"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full px-3 py-2 border rounded"
+          className="input-default"
           required
         />
         <textarea
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full px-3 py-2 border rounded"
-          rows={3}
+          className="input-default"
+          rows={4}
           required
         />
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="w-full px-3 py-2 border rounded"
+          className="input-default"
           required
         >
           <option value="">Select Category</option>
@@ -70,7 +69,7 @@ const SpotForm = ({ onSubmit, coords, onCancel }) => {
           <option value="Adventure">Adventure</option>
         </select>
 
-        <div className="text-sm text-gray-600">
+        <div className="text-sm text-slate-600">
           Coordinates: <strong>{coords.lat.toFixed(4)}, {coords.lng.toFixed(4)}</strong>
         </div>
 
@@ -86,13 +85,13 @@ const SpotForm = ({ onSubmit, coords, onCancel }) => {
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-sm border rounded text-gray-600"
+            className="px-4 py-2 text-sm border rounded text-slate-600"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="btn-primary"
           >
             Submit
           </button>
