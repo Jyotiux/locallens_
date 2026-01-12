@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MapView from "./components/ViewMap.jsx";
 import SpotForm from "./components/SpotForm.jsx";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5000/api/spots";
 
 const App = () => {
   const [selectedCoords, setSelectedCoords] = useState(null);
