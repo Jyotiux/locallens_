@@ -149,13 +149,18 @@ const App = () => {
                   className="group cursor-pointer bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
                 >
                   <div className="relative h-40 overflow-hidden">
-                    {spot.imageUrls?.[0] && (
-                      <img
-                        src={spot.imageUrls[0]}
-                        alt={spot.title}
-                        className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    )}
+                     
+                    <div className="grid grid-cols-2 gap-1 h-40 overflow-hidden">
+                        {spot.imageUrls?.slice(0, 4).map((url, index) => (
+                          <img
+                            key={index}
+                            src={url}
+                            alt={`${spot.title}-${index}`}
+                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        ))}
+                      </div>
+
                     <span className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
                       {spot.category}
                     </span>
