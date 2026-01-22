@@ -102,10 +102,21 @@ const App = () => {
               >
                 <option value="">All Categories</option>
                 <option value="Nature">Nature</option>
-                <option value="Historical">Historical</option>
-                <option value="Food">Local Food</option>
-                <option value="Spiritual">Spiritual</option>
-                <option value="Adventure">Adventure</option>
+              <option value="Scenic">Scenic / Viewpoint</option>
+              <option value="Historical">Historical</option>
+              <option value="Spiritual">Spiritual</option>
+              <option value="Education">Education / Campus</option>
+              
+              <option value="Food">Local Food</option>
+              <option value="Cafe">Cafe / Hangout</option>
+              
+              <option value="Adventure">Adventure</option>
+              <option value="Wildlife">Wildlife</option>
+              <option value="Trekking">Trekking / Hiking</option>
+              
+              <option value="Local">Local Life</option>
+              <option value="Cultural">Cultural / Heritage</option>
+              <option value="Shopping">Local Shopping</option>
               </select>
 
               <select
