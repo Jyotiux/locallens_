@@ -11,6 +11,10 @@ const App = () => {
   const [limit, setLimit] = useState(4);
   const [highlightedCoords, setHighlightedCoords] = useState(null);
 
+  // 🔥 Carousel state
+  const [activeImages, setActiveImages] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const handleAddLocation = (coords) => {
     setSelectedCoords(coords);
   };
@@ -71,7 +75,6 @@ const App = () => {
         <section className="bg-white rounded-xl shadow-md p-5">
           <h2 className="text-xl font-semibold mb-4">Explore Map</h2>
 
-          {/* IMPORTANT: relative wrapper */}
           <div className="relative overflow-hidden rounded-lg border">
             <MapView
               onAddLocation={handleAddLocation}
@@ -95,6 +98,7 @@ const App = () => {
             <h2 className="text-xl font-semibold">Recent Spots</h2>
 
             <div className="flex gap-3 flex-wrap">
+              {/* Category Filter */}
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -102,23 +106,21 @@ const App = () => {
               >
                 <option value="">All Categories</option>
                 <option value="Nature">Nature</option>
-              <option value="Scenic">Scenic / Viewpoint</option>
-              <option value="Historical">Historical</option>
-              <option value="Spiritual">Spiritual</option>
-              <option value="Education">Education / Campus</option>
-              
-              <option value="Food">Local Food</option>
-              <option value="Cafe">Cafe / Hangout</option>
-              
-              <option value="Adventure">Adventure</option>
-              <option value="Wildlife">Wildlife</option>
-              <option value="Trekking">Trekking / Hiking</option>
-              
-              <option value="Local">Local Life</option>
-              <option value="Cultural">Cultural / Heritage</option>
-              <option value="Shopping">Local Shopping</option>
+                <option value="Scenic">Scenic / Viewpoint</option>
+                <option value="Historical">Historical</option>
+                <option value="Spiritual">Spiritual</option>
+                <option value="Education">Education / Campus</option>
+                <option value="Food">Local Food</option>
+                <option value="Cafe">Cafe / Hangout</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Wildlife">Wildlife</option>
+                <option value="Trekking">Trekking / Hiking</option>
+                <option value="Local">Local Life</option>
+                <option value="Cultural">Cultural / Heritage</option>
+                <option value="Shopping">Local Shopping</option>
               </select>
 
+              {/* Limit Filter */}
               <select
                 value={limit}
                 onChange={(e) => setLimit(Number(e.target.value))}
@@ -140,26 +142,25 @@ const App = () => {
               spots.map((spot) => (
                 <article
                   key={spot._id}
-                  onClick={() =>
+                  onClick={() => {
                     setHighlightedCoords({
                       lat: spot.coordinates.lat,
                       lng: spot.coordinates.lng,
-                    })
-                  }
+                    });
+                    setActiveImages(spot.imageUrls);
+                    setActiveIndex(0);
+                  }}
                   className="group cursor-pointer bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
                 >
+                  {/* 🔥 Single Image Preview */}
                   <div className="relative h-40 overflow-hidden">
-                     
-                    <div className="grid grid-cols-2 gap-1 h-40 overflow-hidden">
-                        {spot.imageUrls?.slice(0, 4).map((url, index) => (
-                          <img
-                            key={index}
-                            src={url}
-                            alt={`${spot.title}-${index}`}
-                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                        ))}
-                      </div>
+                    {spot.imageUrls?.[0] && (
+                      <img
+                        src={spot.imageUrls[0]}
+                        alt={spot.title}
+                        className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    )}
 
                     <span className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
                       {spot.category}
@@ -181,6 +182,50 @@ const App = () => {
           </div>
         </section>
       </main>
+
+      {/* 🔥 CAROUSEL MODAL */}
+      {activeImages && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+          {/* Close */}
+          <button
+            className="absolute top-4 right-4 text-white text-2xl"
+            onClick={() => setActiveImages(null)}
+          >
+            ✕
+          </button>
+
+          {/* Left Arrow */}
+          <button
+            className="absolute left-6 text-white text-4xl"
+            onClick={() =>
+              setActiveIndex((prev) =>
+                prev === 0 ? activeImages.length - 1 : prev - 1
+              )
+            }
+          >
+            ‹
+          </button>
+
+          {/* Image */}
+          <img
+            src={activeImages[activeIndex]}
+            alt="spot"
+            className="max-h-[80vh] max-w-[90vw] object-contain rounded-lg shadow-lg"
+          />
+
+          {/* Right Arrow */}
+          <button
+            className="absolute right-6 text-white text-4xl"
+            onClick={() =>
+              setActiveIndex((prev) =>
+                prev === activeImages.length - 1 ? 0 : prev + 1
+              )
+            }
+          >
+            ›
+          </button>
+        </div>
+      )}
     </div>
   );
 };
